@@ -32,7 +32,7 @@ services:
       - "6379:6379"
   
   catalog.api:
-    image: ${DOCKER_REGISTRY-}catalogapi
+    image: ${DOCKER_REGISTRY-}catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
@@ -46,6 +46,20 @@ services:
     build:
       context: .
       dockerfile: Services/Catalog/CatalogAPI/Dockerfile
+      
+  discount.grpc:
+    image: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Data Source=discountdb
+    ports:
+      - "6002:8080"
+      - "6062:8082"
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.GRPC/Dockerfile
       
   basket.api:
     image: ${DOCKER_REGISTRY-}basket.api
@@ -69,4 +83,4 @@ volumes:
   postgres_catalog:
   postgres_basket:
 
-
+  
