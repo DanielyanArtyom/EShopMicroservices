@@ -1,5 +1,4 @@
 using Discount.GRPC;
-using NetTopologySuite.Index.HPRtree;
 
 namespace Basket.API.Basket.StoreBasket;
 
