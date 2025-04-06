@@ -24,6 +24,15 @@ services:
       - "5433:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data
+        
+  orderdb:
+    container_name: orderdb
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=SwN12345678
+    ports:
+      - "1433:1433"
   
   distributedCache:
     image: redis
@@ -85,10 +94,3 @@ volumes:
   postgres_catalog:
   postgres_basket:
 
-  
-
-  ordering.api:
-    image: ordering.api
-    build:
-      context: .
-      dockerfile: Services/Ordering/Ordering.API/Dockerfile
