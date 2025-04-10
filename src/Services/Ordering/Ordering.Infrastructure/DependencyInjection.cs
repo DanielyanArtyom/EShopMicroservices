@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Application.Data;
 
 namespace Ordering.Infrastructure;
 
@@ -19,7 +20,7 @@ public static class DependencyInjection
             opt.UseSqlServer(connectionString);
         });
         
-        //serviceCollection.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+        serviceCollection.AddScoped<IApplicationDbContext, ApplicationDbContext>();
         
         return serviceCollection;
     }
