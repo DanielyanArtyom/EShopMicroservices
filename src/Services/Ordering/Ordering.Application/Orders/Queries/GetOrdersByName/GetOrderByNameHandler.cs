@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Ordering.Application.Orders.Queries.GetOrdersByName;
 
 public class GetOrdersByNameHandler(IApplicationDbContext dbContext)
