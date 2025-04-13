@@ -1,5 +1,6 @@
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
+using BuildingBlocks.Messaging.MassTransit;
 using Discount.GRPC;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -35,7 +36,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opt =>
 {
     opt.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUri"]!);
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
 });
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
